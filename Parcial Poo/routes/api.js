@@ -19,7 +19,7 @@ router.get('/usuario/:id/credito', async (req, res) => {
 
         res.json({ credito: usuario.credito });
     } catch (err) {
-        console.error("❌ Error al obtener créditos:", err);
+        console.error("Error al obtener créditos:", err);
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
@@ -44,7 +44,7 @@ router.get('/envios', async (req, res) => {
 
         res.json(envios);
     } catch (err) {
-        console.error("❌ Error al obtener envíos:", err);
+        console.error("Error al obtener envíos:", err);
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
@@ -68,7 +68,7 @@ router.post('/usuario/:id/comprar-creditos', async (req, res) => {
 
         res.json({ mensaje: 'Créditos añadidos exitosamente', nuevoCredito: usuario.credito });
     } catch (err) {
-        console.error("❌ Error al comprar créditos:", err);
+        console.error("Error al comprar créditos:", err);
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
@@ -79,7 +79,7 @@ router.post('/envios', async (req, res) => {
         const envio = await envioService.registrarEnvio(req.body);
         res.json({ mensaje: 'Envío registrado', envio });
     } catch (err) {
-        console.error("❌ Error al registrar envío:", err);
+        console.error("Error al registrar envío:", err);
         res.status(400).json({ error: err.message });
     }
 });
@@ -90,7 +90,7 @@ router.get('/envios/:usuarioId', async (req, res) => {
         const envios = await Envio.find({ usuarioId: req.params.usuarioId }).populate('producto');
         res.json(envios);
     } catch (err) {
-        console.error("❌ Error al consultar envíos:", err);
+        console.error("Error al preguntar envíos:", err);
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
@@ -104,7 +104,7 @@ router.get('/productos', async (req, res) => {
         }
         res.json(productos);
     } catch (err) {
-        console.error("❌ Error al obtener productos:", err);
+        console.error("Error al buscar productos:", err);
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
@@ -118,7 +118,7 @@ router.get('/producto/:id', async (req, res) => {
         }
         res.json(producto);
     } catch (err) {
-        console.error("❌ Error al obtener producto:", err);
+        console.error("Error al obtener producto:", err);
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
@@ -175,7 +175,7 @@ router.delete('/envios/:envioId', async (req, res) => {
 
         res.json({ mensaje: 'Envío eliminado y crédito reembolsado' });
     } catch (err) {
-        console.error("❌ Error al eliminar envío:", err);
+        console.error("Error al eliminar envío:", err);
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
