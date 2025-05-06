@@ -1,49 +1,75 @@
 # ProgramacionEstructurada
-# 📦 FASTDROP API
+PARCIAL APIPOSTMAIL
+API REST con Node.js + Express + MongoDB para:
 
-## 📌 Descripción  
-FASTDROP API es un sistema que permite gestionar envíos, manejar créditos de usuarios y registrar productos asociados a esos envíos. Los usuarios pueden recargar créditos para realizar envíos y revisar su saldo disponible en cualquier momento.
+Comprar créditos
 
-## 🚀 Instalación y ejecución
+Registrar envíos
 
-1. **Clonar el repositorio**  
-```bash
-git clone https://github.com/Bryan010206/ProgramacionEstructurada.git
-cd fastdrop-api
-```
+Eliminar envíos (con reembolso de créditos)
 
-2. **Instalar dependencias**  
-```bash
-npm install
-```
+Consultar envíos, créditos y productos disponibles
 
-3. **Conectar con MongoDB**  
-Debe estar activo en `localhost:27017`. Usa colecciones `usuarios` y `envios`.
+💠 Recursos usados
+Node.js
 
-4. **Iniciar el servidor**  
-```bash
-node server.js
-```
+Express
 
-## 📡 Endpoints de la API
+MongoDB + Mongoose
 
-### `GET /api/usuario/:id/credito`  
-Consulta créditos disponibles.
+🥪 Endpoints disponibles
+Usuarios
 
-### `POST /api/usuario/:id/comprar-creditos`  
-Compra créditos.
+GET /usuario/:id/credito → Muestra créditos de un usuario
 
-### `POST /api/envios`  
-Registra un envío.  
-Ejemplo: Carlos Méndez, Col. Los Pinos, caja de herramientas.
+POST /usuario/:id/comprar-creditos → Compra créditos (paquetes: 30, 40, 60)
 
-### `GET /api/envios/:usuarioId`  
-Consulta envíos del usuario.
+Cuerpo JSON:
 
-### `DELETE /api/envios/:envioId`  
-Elimina un envío y reembolsa créditos.
+json
+{ "paquete": "30" }
+Envíos
 
-## ✅ Notas finales
-- Créditos = saldo de envíos.
-- Se descuentan automáticamente.
-- Registro, consulta y eliminación fáciles.
+POST /envios → Registrar nuevo envío Cuerpo JSON:
+
+json
+{
+  "usuarioId": "USR001",
+  "producto": "ID_DEL_PRODUCTO"
+}
+GET /envios/:usuarioId → Muestra envíos de un usuario
+
+DELETE /envios/:envioId → Elimina un envío y reembolsa créditos según peso
+
+Productos
+
+GET /productos → Lista de productos disponibles
+
+POST /productos → (Si está habilitado) Crea un producto
+
+Ejemplo JSON:
+
+json
+{
+  "nombre": "iphone",
+  "descripcion": "iphone SE 2020",
+  "peso": 4
+}
+🎯 Lógica de créditos
+Si el peso del producto es ≤ 3kg → cuesta 1 crédito
+
+Si es > 3kg → cuesta Math.ceil(peso / 3) créditos
+
+Al eliminar un envío, se reembolsan créditos
+
+Estructura del proyecto
+postmail-api
+├── models/       # Esquemas de usuario, producto y envío
+├── services/     # Lógica de envío y conexión DB
+├── routes/       # Rutas de la API
+├── .env          # Variables de entorno
+├── index.js      # Punto de entrada
+└── package.json  # Configuración del proyecto
+
+
+y eso es todo
